@@ -13,6 +13,13 @@ locals {
   igw_tags         = merge(local.common_tags, { Name = "${local.common_name}-igw" })
   nat_gateway_tags = merge(local.common_tags, { Name = "${local.common_name}-natgw" })
 
+  ####################### SG Locals #######################
+
+  alb_sg      = "${local.common_name}-alb-sg"
+  ec2_sg      = "${local.common_name}-ec2-sg"
+  alb_sg_tags = merge(local.common_tags, { Name = local.alb_sg })
+  ec2_sg_tags = merge(local.common_tags, { Name = local.ec2_sg })
+
   ####################### ALB Locals #######################
 
   alb_name          = "${local.common_name}-alb"
@@ -21,7 +28,10 @@ locals {
 
   ####################### ASG Locals #######################
 
-  asg_name      = "${local.common_name}-asg"
-  asg_tags      = merge(local.common_tags, { Name = local.asg_name })
-  instance_name = "${local.common_name}-ec2"
+  asg_name             = "${local.common_name}-asg"
+  asg_tags             = merge(local.common_tags, { Name = local.asg_name })
+  launch_template_name = "${local.common_name}-lt"
+  launch_template_tags = merge(local.common_tags, { Name = local.launch_template_name })
+  instance_name        = "${local.common_name}-ec2"
+  user_data_file       = file("${path.module}/user_data/frontend.sh")
 }
