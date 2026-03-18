@@ -33,5 +33,5 @@ locals {
   launch_template_name = "${local.common_name}-lt"
   launch_template_tags = merge(local.common_tags, { Name = local.launch_template_name })
   instance_name        = "${local.common_name}-ec2"
-  user_data_file       = file("${path.module}/user_data/frontend.sh")
+  user_data_file       = base64encode(file("${path.module}/user_data/frontend.sh"))
 }
