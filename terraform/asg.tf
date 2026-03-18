@@ -38,4 +38,5 @@ module "asg" {
   instance_name          = local.instance_name
   security_groups        = [module.ec2-sg.security_group_id]
   user_data              = local.user_data_file
+  depends_on = [ module.vpc, module.alb-nlb ]
 }
