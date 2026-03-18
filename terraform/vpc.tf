@@ -16,6 +16,7 @@ module "vpc" {
   igw_tags                      = local.igw_tags
   enable_nat_gateway            = true
   single_nat_gateway            = true
+  one_nat_gateway_per_az        = false
   nat_gateway_tags              = local.nat_gateway_tags
   tags                          = local.vpc_tags
 }
