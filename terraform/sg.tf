@@ -17,7 +17,7 @@ module "ec2-sg" {
   vpc_id      = module.vpc.vpc_id
   description = "Allow HTTP from ALB security group only"
   ingress_with_source_security_group_id = [
-    "restrict" = {
+    {
       rule                     = "http-80-tcp"
       source_security_group_id = module.alb-sg.security_group_id
     }
