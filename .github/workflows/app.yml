@@ -1,0 +1,19 @@
+name: "APP"
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  dir: "terraform"
+
+jobs:
+  
+  terraform:
+
+    runs-on: [ubuntu-latest]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
