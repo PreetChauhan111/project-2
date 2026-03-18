@@ -1,6 +1,6 @@
 module "asg" {
   source                    = "PreetChauhan111/asg/pc"
-  version                   = "1.2.1"
+  version                   = "1.2.2"
   name                      = local.asg_name
   autoscaling_group_tags    = local.asg_tags
   vpc_zone_identifier       = module.vpc.private_subnets
@@ -21,19 +21,21 @@ module "asg" {
       }
     }
   }
+  traffic_source_attachments = {
+    alb = {
+      traffic_source_identifier = module.alb-nlb.target_groups["app"].arn
+      traffic_source_type       = "elbv2"
+    }
+  }
 
   ##################### Launch Template #######################
 
   create_launch_template = true
   launch_template_name   = local.launch_template_name
   launch_template_tags   = local.launch_template_tags
-  image_id               = data.ami_id.ami_id
+  image_id               = data.ami_id.id
   instance_type          = var.instance_type
   instance_name          = local.instance_name
   security_groups        = [module.ec2-sg.security_group_id]
   user_data              = local.user_data_file
-
-  ##################### Target Group #######################
-
-  target_group_arns = [module.alb-nlb.target_groups["app"].target_group_arn]
 }
