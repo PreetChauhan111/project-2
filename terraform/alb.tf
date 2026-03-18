@@ -22,6 +22,7 @@ module "alb-nlb" {
       protocol    = "HTTP"
       port        = 80
       target_type = "instance"
+      create_attachment = false
 
       health_check = {
         path                = "/health"

@@ -5,7 +5,7 @@ module "alb-sg" {
   vpc_id              = module.vpc.vpc_id
   description         = "Allow HTTP and HTTPS traffic"
   ingress_cidr_blocks = ["0.0.0.0/0"]
-  ingress_rules       = ["http", "https"]
+  ingress_rules       = ["http-80-tcp", "https-443-tcp"]
   egress_rules        = ["all-all"]
   tags                = local.alb_sg_tags
 }
