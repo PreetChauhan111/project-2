@@ -33,7 +33,7 @@ module "asg" {
   create_launch_template = true
   launch_template_name   = local.launch_template_name
   launch_template_tags   = local.launch_template_tags
-  image_id               = data.ami_id.id
+  image_id               = data.aws_ami.ami_id.id
   instance_type          = var.instance_type
   instance_name          = local.instance_name
   security_groups        = [module.ec2-sg.security_group_id]
