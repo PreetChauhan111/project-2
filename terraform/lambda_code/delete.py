@@ -7,7 +7,7 @@ table = dynamodb.Table(os.environ['TABLE_NAME'])
 
 def lambda_handler(event, context):
     try:
-        body = json.loads(event['body'])
+        body = json.loads(event.get('body') or "{}")
         item_id = body.get("id")
 
         table.delete_item(

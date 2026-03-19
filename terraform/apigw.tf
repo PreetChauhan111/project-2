@@ -112,7 +112,7 @@ module "apigw-rest" {
             requestTemplates = {
               "application/json" = "{\"statusCode\": 200}"
             }
-            response = {
+            responses = {
               default = {
                 statusCode = "200"
                 responseParameters = {
@@ -167,7 +167,7 @@ module "apigw-rest" {
             requestTemplates = {
               "application/json" = "{\"statusCode\": 200}"
             }
-            response = {
+            responses = {
               default = {
                 statusCode = "200"
                 responseParameters = {
