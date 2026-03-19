@@ -3,7 +3,7 @@ const app = express();
 const PORT = 80; // use 80 in EC2 if needed
 
 // Change this later to your API Gateway domain
-const API_BASE = "http://api.preetchauhan211.in";
+const API_BASE = "https://api.preetchauhan211.in";
 
 app.use(express.json());
 
