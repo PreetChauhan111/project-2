@@ -4,6 +4,7 @@ module "apigw-rest" {
   enabled       = true
   name          = local.apigw_name
   tags          = local.apigw_tags
+  environment   = var.environment
   stage         = var.environment
   logging_level = "INFO"
   openapi_config = {
