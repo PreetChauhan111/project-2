@@ -25,7 +25,8 @@ module "lambda-read" {
         Effect = "Allow"
         Action = [
           "dynamodb:GetItem",
-          "dynamodb:Query"
+          "dynamodb:Query",
+          "dynamodb:Scan"
         ]
         Resource = [
           module.ddb.dynamodb_table_arn,
