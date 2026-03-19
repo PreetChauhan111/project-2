@@ -54,21 +54,6 @@ locals {
   delete_handler       = "delete.lambda_handler"
   delete_function_tags = merge(local.common_tags, { Name = local.delete_function })
 
-  lambda_base_policy = {
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Effect = "Allow"
-        Action = [
-          "logs:CreateLogGroup",
-          "logs:CreateLogStream",
-          "logs:PutLogEvents"
-        ]
-        Resource = "*"
-      }
-    ]
-  }
-
   ####################### DDB Locals #######################
 
   table_name = "${local.common_name}-table"

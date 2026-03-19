@@ -20,22 +20,19 @@ module "lambda-read" {
 
   policy_json = jsonencode({
     Version = "2012-10-17"
-    Statement = concat(
-      local.lambda_base_policy.Statement,
-      [
-        {
-          Effect = "Allow"
-          Action = [
-            "dynamodb:GetItem",
-            "dynamodb:Query"
-          ]
-          Resource = [
-            module.ddb.dynamodb_table_arn,
-            "${module.ddb.dynamodb_table_arn}/*"
-          ]
-        }
-      ]
-    )
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "dynamodb:GetItem",
+          "dynamodb:Query"
+        ]
+        Resource = [
+          module.ddb.dynamodb_table_arn,
+          "${module.ddb.dynamodb_table_arn}/*"
+        ]
+      }
+    ]
   })
 }
 
@@ -61,22 +58,19 @@ module "lambda-add" {
 
   policy_json = jsonencode({
     Version = "2012-10-17"
-    Statement = concat(
-      local.lambda_base_policy.Statement,
-      [
-        {
-          Effect = "Allow"
-          Action = [
-            "dynamodb:PutItem",
-            "dynamodb:UpdateItem"
-          ]
-          Resource = [
-            module.ddb.dynamodb_table_arn,
-            "${module.ddb.dynamodb_table_arn}/*"
-          ]
-        }
-      ]
-    )
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "dynamodb:PutItem",
+          "dynamodb:UpdateItem"
+        ]
+        Resource = [
+          module.ddb.dynamodb_table_arn,
+          "${module.ddb.dynamodb_table_arn}/*"
+        ]
+      }
+    ]
   })
 }
 
@@ -102,20 +96,17 @@ module "lambda-delete" {
 
   policy_json = jsonencode({
     Version = "2012-10-17"
-    Statement = concat(
-      local.lambda_base_policy.Statement,
-      [
-        {
-          Effect = "Allow"
-          Action = [
-            "dynamodb:DeleteItem"
-          ]
-          Resource = [
-            module.ddb.dynamodb_table_arn,
-            "${module.ddb.dynamodb_table_arn}/*"
-          ]
-        }
-      ]
-    )
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "dynamodb:DeleteItem"
+        ]
+        Resource = [
+          module.ddb.dynamodb_table_arn,
+          "${module.ddb.dynamodb_table_arn}/*"
+        ]
+      }
+    ]
   })
 }

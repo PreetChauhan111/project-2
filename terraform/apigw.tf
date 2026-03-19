@@ -193,7 +193,7 @@ resource "aws_lambda_permission" "apigw_read" {
   action        = "lambda:InvokeFunction"
   function_name = module.lambda-read.lambda_function_name
   principal     = "apigateway.amazonaws.com"
-  source_arn    = "${module.apigw-rest.execution_arn}/*/GET"
+  source_arn    = "${module.apigw-rest.execution_arn}/*/*"
 }
 
 resource "aws_lambda_permission" "apigw_add" {
