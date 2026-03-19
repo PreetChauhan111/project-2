@@ -3,14 +3,15 @@
 ####################################################
 
 module "lambda-read" {
-  source        = "PreetChauhan111/lambda/pc"
-  version       = "1.1.0"
-  function_name = local.read_function
-  source_path   = local.read_function_path
-  handler       = local.read_handler
-  runtime       = var.lambda_runtime
-  timeout       = var.lambda_timeout
-  memory_size   = var.lambda_memory
+  source             = "PreetChauhan111/lambda/pc"
+  version            = "1.1.0"
+  function_name      = local.read_function
+  source_path        = local.read_function_path
+  handler            = local.read_handler
+  runtime            = var.lambda_runtime
+  timeout            = var.lambda_timeout
+  memory_size        = var.lambda_memory
+  attach_policy_json = true
 
   environment_variables = {
     TABLE_NAME = local.table_name
@@ -39,14 +40,15 @@ module "lambda-read" {
 ####################################################
 
 module "lambda-add" {
-  source        = "PreetChauhan111/lambda/pc"
-  version       = "1.1.0"
-  function_name = local.add_function
-  source_path   = local.add_function_path
-  handler       = local.add_handler
-  runtime       = var.lambda_runtime
-  timeout       = var.lambda_timeout
-  memory_size   = var.lambda_memory
+  source             = "PreetChauhan111/lambda/pc"
+  version            = "1.1.0"
+  function_name      = local.add_function
+  source_path        = local.add_function_path
+  handler            = local.add_handler
+  runtime            = var.lambda_runtime
+  timeout            = var.lambda_timeout
+  memory_size        = var.lambda_memory
+  attach_policy_json = true
 
   environment_variables = {
     TABLE_NAME = local.table_name
@@ -74,14 +76,15 @@ module "lambda-add" {
 ####################################################
 
 module "lambda-delete" {
-  source        = "PreetChauhan111/lambda/pc"
-  version       = "1.1.0"
-  function_name = local.delete_function
-  source_path   = local.delete_function_path
-  handler       = local.delete_handler
-  runtime       = var.lambda_runtime
-  timeout       = var.lambda_timeout
-  memory_size   = var.lambda_memory
+  source             = "PreetChauhan111/lambda/pc"
+  version            = "1.1.0"
+  function_name      = local.delete_function
+  source_path        = local.delete_function_path
+  handler            = local.delete_handler
+  runtime            = var.lambda_runtime
+  timeout            = var.lambda_timeout
+  memory_size        = var.lambda_memory
+  attach_policy_json = true
 
   environment_variables = {
     TABLE_NAME = local.table_name
