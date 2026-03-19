@@ -28,10 +28,7 @@ module "lambda-read" {
           "dynamodb:Query",
           "dynamodb:Scan"
         ]
-        Resource = [
-          module.ddb.dynamodb_table_arn,
-          "${module.ddb.dynamodb_table_arn}/*"
-        ]
+        Resource = module.ddb.dynamodb_table_arn
       }
     ]
   })
@@ -66,10 +63,7 @@ module "lambda-add" {
           "dynamodb:PutItem",
           "dynamodb:UpdateItem"
         ]
-        Resource = [
-          module.ddb.dynamodb_table_arn,
-          "${module.ddb.dynamodb_table_arn}/*"
-        ]
+        Resource = module.ddb.dynamodb_table_arn
       }
     ]
   })
@@ -103,10 +97,7 @@ module "lambda-delete" {
         Action = [
           "dynamodb:DeleteItem"
         ]
-        Resource = [
-          module.ddb.dynamodb_table_arn,
-          "${module.ddb.dynamodb_table_arn}/*"
-        ]
+        Resource = module.ddb.dynamodb_table_arn
       }
     ]
   })
