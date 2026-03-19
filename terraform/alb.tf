@@ -12,7 +12,7 @@ module "alb-nlb" {
     https = {
       port            = 443
       protocol        = "HTTPS"
-      certificate_arn = module.acm.acm_certificate_arn
+      certificate_arn = module.acm-www.acm_certificate_arn
 
       forward = {
         target_group_key = "app"
