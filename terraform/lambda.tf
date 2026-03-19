@@ -13,7 +13,7 @@ module "lambda-read" {
   memory_size   = var.lambda_memory
 
   environment_variables = {
-    TABLE_NAME = module.ddb.dynamodb_table_id
+    TABLE_NAME = local.table_name
   }
 
   tags = local.read_function_tags
@@ -49,7 +49,7 @@ module "lambda-add" {
   memory_size   = var.lambda_memory
 
   environment_variables = {
-    TABLE_NAME = module.ddb.dynamodb_table_id
+    TABLE_NAME = local.table_name
   }
 
   tags = local.add_function_tags
@@ -84,7 +84,7 @@ module "lambda-delete" {
   memory_size   = var.lambda_memory
 
   environment_variables = {
-    TABLE_NAME = module.ddb.dynamodb_table_id
+    TABLE_NAME = local.table_name
   }
 
   tags = local.delete_function_tags
