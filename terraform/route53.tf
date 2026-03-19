@@ -7,7 +7,7 @@ module "route53" {
       name = "www.${var.domain_name}"
       type = "A"
       alias = {
-        name    = module.alb.dns_name
+        name    = module.alb-nlb.dns_name
         zone_id = data.aws_route53_zone.hosted_zone.id
       }
     }
