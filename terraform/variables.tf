@@ -64,3 +64,22 @@ variable "domain_name" {
   type    = string
   default = "preetchauhan211.in"
 }
+
+variable "validation_method" {
+  type    = string
+  default = "DNS"
+}
+
+variable "key_algorithm" {
+  type    = string
+  default = "RSA_2048"
+}
+
+##################################################
+# SNS Variables                                  #
+##################################################
+
+variable "email" {
+  type    = string
+  default = "preetchauhan4210@gmail.com"
+}

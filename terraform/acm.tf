@@ -6,8 +6,8 @@ module "acm-api" {
   create_certificate     = true
   create_route53_records = true
   validate_certificate   = true
-  key_algorithm          = "RSA_2048"
-  validation_method      = "DNS"
+  key_algorithm          = var.key_algorithm
+  validation_method      = var.validation_method
   wait_for_validation    = true
   tags                   = local.api_acm_tags
 }
@@ -20,8 +20,8 @@ module "acm-www" {
   create_certificate     = true
   create_route53_records = true
   validate_certificate   = true
-  key_algorithm          = "RSA_2048"
-  validation_method      = "DNS"
+  key_algorithm          = var.key_algorithm
+  validation_method      = var.validation_method
   wait_for_validation    = true
   tags                   = local.www_acm_tags
 }

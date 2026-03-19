@@ -73,4 +73,14 @@ locals {
   api_acm_tags = merge(local.common_tags, { Name = local.api_acm_name })
   www_acm_name = "${local.common_name}-www-acm"
   www_acm_tags = merge(local.common_tags, { Name = local.www_acm_name })
+
+  ####################### CloudWatch Locals #######################
+
+  alarm_name = "${local.common_name}-alarm"
+  alarm_tags = merge(local.common_tags, { Name = local.alarm_name })
+
+  ####################### SNS Locals #######################
+
+  topic_name = "${local.common_name}-sns"
+  topic_tags = merge(local.common_tags, { Name = local.topic_name })
 }
