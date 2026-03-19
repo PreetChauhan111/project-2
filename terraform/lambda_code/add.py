@@ -13,18 +13,27 @@ def lambda_handler(event, context):
         item = {
             "id": str(uuid.uuid4()),
             "name": body.get("name"),
-            "value": body.get("value")
+            "author": body.get("author"),
+            "publish_date": body.get("publish_date")
         }
 
         table.put_item(Item=item)
 
         return {
             "statusCode": 200,
+            "headers": {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Headers": "*",
+                "Access-Control-Allow-Methods": "*"
+            },
             "body": json.dumps(item)
         }
 
     except Exception as e:
         return {
             "statusCode": 500,
+            "headers": {
+                "Access-Control-Allow-Origin": "*"
+            },
             "body": json.dumps({"error": str(e)})
         }

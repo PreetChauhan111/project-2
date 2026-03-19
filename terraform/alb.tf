@@ -9,9 +9,11 @@ module "alb-nlb" {
   security_groups            = [module.alb-sg.security_group_id]
   enable_deletion_protection = false
   listeners = {
-    http = {
-      port     = 80
-      protocol = "HTTP"
+    https = {
+      port            = 443
+      protocol        = "HTTPS"
+      certificate_arn = module.acm.acm_certificate_arn
+
       forward = {
         target_group_key = "app"
       }
