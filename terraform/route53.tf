@@ -8,7 +8,7 @@ module "route53" {
       type = "A"
       alias = {
         name    = module.alb-nlb.dns_name
-        zone_id = module.alb.zone_id
+        zone_id = module.alb-nlb.zone_id
       }
     }
   }

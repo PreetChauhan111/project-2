@@ -218,7 +218,7 @@ resource "aws_lambda_permission" "apigw_delete" {
 
 resource "aws_api_gateway_domain_name" "apigw_domain" {
   domain_name     = var.domain_name
-  regional_certificate_arn = module.acm-api.certificate_arn
+  regional_certificate_arn = module.acm-api.regional_certificate_arn
   endpoint_configuration { types = ["REGIONAL"] }
 }
 
