@@ -222,6 +222,6 @@ resource "aws_api_gateway_domain_name" "apigw_domain" {
 
 resource "aws_api_gateway_base_path_mapping" "apigw_mapping" {
   domain_name = aws_api_gateway_domain_name.apigw_domain.domain_name
-  api_id      = module.apigw-rest.api_id
+  api_id      = module.apigw-rest.id
   stage_name  = var.environment
 }
