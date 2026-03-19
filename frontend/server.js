@@ -97,7 +97,6 @@ app.get("/", (req, res) => {
       <body>
         <div class="container">
           <h1>📚 Library Management</h1>
-
           <div class="form">
             <input id="name" placeholder="Book Name" />
             <input id="author" placeholder="Author" />

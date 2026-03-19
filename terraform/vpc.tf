@@ -5,7 +5,9 @@ module "vpc" {
   azs                           = var.azs
   cidr                          = var.vpc_cidr
   private_subnets               = var.private_subnets
+  private_subnet_names          = "${local.private_subnet_names}-${count.index + 1}"
   public_subnets                = var.public_subnets
+  public_subnet_names           = "${local.public_subnet_names}-${count.index + 1}"
   manage_default_route_table    = false
   manage_default_security_group = false
   manage_default_network_acl    = true

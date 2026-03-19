@@ -40,3 +40,27 @@ variable "instance_type" {
   type    = string
   default = "t3.micro"
 }
+
+variable "lambda_runtime" {
+  type    = string
+  default = "python3.12"
+}
+
+variable "lambda_timeout" {
+  type    = number
+  default = 10
+}
+
+variable "lambda_memory" {
+  type    = number
+  default = 128
+}
+
+##################################################
+# ACM Variables                                  #
+##################################################
+
+variable "domain_name" {
+  type    = string
+  default = "preetchauhan211.in"
+}
