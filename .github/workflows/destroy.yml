@@ -29,7 +29,7 @@ jobs:
         run: |
           set -euxo pipefail
           terraform init -input=false
-
+          
       - name: Terraform Destroy
         working-directory: ${{ env.dir }}
         run: |
