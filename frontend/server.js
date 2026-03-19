@@ -1,117 +1,50 @@
 const express = require("express");
 const app = express();
-const PORT = 80; // use 80 in EC2 if needed
+const PORT = 80;
 
-// Change this later to your API Gateway domain
-const API_BASE = "https://api.preetchauhan211.in";
+// Configurable API base
+const API_BASE = process.env.API_BASE || "https://api.preetchauhan211.in";
 
 app.use(express.json());
 
-// ✅ Health check for ALB
+// Health check
 app.get("/health", (req, res) => {
   res.status(200).send("OK");
 });
 
-// ✅ Frontend UI
+// Frontend UI
 app.get("/", (req, res) => {
   res.send(`
     <html>
       <head>
         <title>Library App</title>
         <style>
-          body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
-            margin: 0;
-            padding: 0;
-          }
-
-          .container {
-            max-width: 900px;
-            margin: 40px auto;
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-          }
-
-          h1 {
-            text-align: center;
-          }
-
-          .form {
-            margin-top: 20px;
-          }
-
-          input {
-            padding: 10px;
-            margin: 5px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-          }
-
-          button {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-          }
-
-          .add-btn {
-            background: #28a745;
-            color: white;
-          }
-
-          .refresh-btn {
-            background: #007bff;
-            color: white;
-          }
-
-          .delete-btn {
-            background: #dc3545;
-            color: white;
-          }
-
-          table {
-            width: 100%;
-            margin-top: 20px;
-            border-collapse: collapse;
-          }
-
-          th, td {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-            text-align: left;
-          }
-
-          th {
-            background: #f1f1f1;
-          }
-
-          tr:hover {
-            background: #f9f9f9;
-          }
+          body { font-family: Arial; background: #f4f6f8; }
+          .container { max-width: 900px; margin: 40px auto; background: white; padding: 25px; border-radius: 10px; }
+          input { padding: 10px; margin: 5px; }
+          button { padding: 10px; margin: 5px; cursor: pointer; }
+          table { width: 100%; margin-top: 20px; }
         </style>
       </head>
 
       <body>
         <div class="container">
           <h1>📚 Library Management</h1>
-          <div class="form">
-            <input id="name" placeholder="Book Name" />
-            <input id="author" placeholder="Author" />
-            <input id="publish_date" type="date" />
-            <button class="add-btn" onclick="addBook()">Add Book</button>
-            <button class="refresh-btn" onclick="loadBooks()">Refresh</button>
-          </div>
 
-          <table>
+          <input id="name" placeholder="Book Name" />
+          <input id="author" placeholder="Author" />
+          <input id="publish_date" type="date" />
+
+          <button onclick="addBook()">Add</button>
+          <button onclick="loadBooks()">Refresh</button>
+
+          <table border="1">
             <thead>
               <tr>
                 <th>#</th>
                 <th>Name</th>
                 <th>Author</th>
-                <th>Publish Date</th>
+                <th>Date</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -124,29 +57,27 @@ app.get("/", (req, res) => {
 
           async function loadBooks() {
             try {
-              const res = await fetch(API + "/read");
-              const data = await res.json();
+              const res = await fetch(API + "/"); // FIXED
+              if (!res.ok) throw new Error("API error");
 
+              const data = await res.json();
               const table = document.getElementById("bookTable");
               table.innerHTML = "";
 
-              data.forEach((book, index) => {
-                const row = document.createElement("tr");
-
-                row.innerHTML = \`
-                  <td>\${index + 1}</td>
-                  <td>\${book.name}</td>
-                  <td>\${book.author}</td>
-                  <td>\${book.publish_date}</td>
-                  <td>
-                    <button class="delete-btn" onclick="deleteBook('\${book.id}')">
-                      Delete
-                    </button>
-                  </td>
+              data.forEach((book, i) => {
+                table.innerHTML += \`
+                  <tr>
+                    <td>\${i + 1}</td>
+                    <td>\${book.name}</td>
+                    <td>\${book.author}</td>
+                    <td>\${book.publish_date}</td>
+                    <td>
+                      <button onclick="deleteBook('\${book.id}')">Delete</button>
+                    </td>
+                  </tr>
                 \`;
-
-                table.appendChild(row);
               });
+
             } catch (err) {
               alert("Error loading books");
               console.error(err);
@@ -154,12 +85,12 @@ app.get("/", (req, res) => {
           }
 
           async function addBook() {
-            const name = document.getElementById("name").value;
-            const author = document.getElementById("author").value;
+            const name = document.getElementById("name").value.trim();
+            const author = document.getElementById("author").value.trim();
             const publish_date = document.getElementById("publish_date").value;
 
             if (!name || !author || !publish_date) {
-              alert("All fields are required");
+              alert("All fields required");
               return;
             }
 
@@ -168,18 +99,19 @@ app.get("/", (req, res) => {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
+                  id: Date.now().toString(), // FIXED
                   name,
                   author,
                   publish_date
                 })
               });
 
-              // clear inputs
               document.getElementById("name").value = "";
               document.getElementById("author").value = "";
               document.getElementById("publish_date").value = "";
 
               loadBooks();
+
             } catch (err) {
               alert("Error adding book");
               console.error(err);
@@ -189,19 +121,19 @@ app.get("/", (req, res) => {
           async function deleteBook(id) {
             try {
               await fetch(API + "/delete", {
-                method: "POST",
+                method: "DELETE", // FIXED
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ id })
               });
 
               loadBooks();
+
             } catch (err) {
               alert("Error deleting book");
               console.error(err);
             }
           }
 
-          // Load on page start
           loadBooks();
         </script>
       </body>
@@ -209,7 +141,7 @@ app.get("/", (req, res) => {
   `);
 });
 
-// ✅ Start server
+// Start server
 app.listen(PORT, () => {
   console.log("Server running on port " + PORT);
 });

@@ -57,10 +57,7 @@ jobs:
         run: |
           set -euxo pipefail
           terraform apply -auto-approve -input=false
-      
-      - name: Warm up time
-        run: sleep 30
-
+          
   docker:
 
     runs-on: [ubuntu-latest]
