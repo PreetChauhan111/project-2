@@ -4,7 +4,7 @@ module "route53" {
   create_zone = false
   records = {
     alb = {
-      name = "www.${var.domain_name}"
+      name = "www"
       type = "A"
       alias = {
         name    = module.alb-nlb.dns_name
