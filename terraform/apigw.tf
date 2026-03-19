@@ -1,11 +1,11 @@
 module "apigw-rest" {
-  source        = "PreetChauhan111/apigw-rest/pc"
-  version       = "1.2.2"
-  enabled       = true
-  name          = local.apigw_name
-  tags          = local.apigw_tags
+  source  = "PreetChauhan111/apigw-rest/pc"
+  version = "1.2.2"
+  enabled = true
+  name    = local.apigw_name
+  tags    = local.apigw_tags
   # environment   = var.environment
-  stage         = var.environment
+  stage = var.environment
   # namespace     = "pc"
   logging_level = "OFF"
   openapi_config = {
@@ -217,7 +217,7 @@ resource "aws_lambda_permission" "apigw_delete" {
 ###########################################################
 
 resource "aws_api_gateway_domain_name" "apigw_domain" {
-  domain_name     = "api.${var.domain_name}"
+  domain_name              = "api.${var.domain_name}"
   regional_certificate_arn = module.acm-api.acm_certificate_arn
   endpoint_configuration { types = ["REGIONAL"] }
 }
