@@ -6,6 +6,7 @@ module "apigw-rest" {
   tags          = local.apigw_tags
   environment   = var.environment
   stage         = var.environment
+  namespace     = "pc"
   logging_level = "INFO"
   openapi_config = {
     openapi = "3.0.1"
